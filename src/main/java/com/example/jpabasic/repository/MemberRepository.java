@@ -1,6 +1,6 @@
 package com.example.jpabasic.repository;
 
-import com.example.jpabasic.domain.member.Member;
+import com.example.jpabasic.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

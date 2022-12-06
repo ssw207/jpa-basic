@@ -1,16 +1,13 @@
 package com.example.jpabasic.repository;
 
-import com.example.jpabasic.domain.member.Member;
+import com.example.jpabasic.domain.Member;
+import com.example.jpabasic.domain.Role;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.awt.desktop.PrintFilesEvent;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class MemberRepositoryTest {
@@ -22,7 +19,12 @@ class MemberRepositoryTest {
     @Test
     void save() {
         // 트렌젝션 시작
-        Member member = new Member("이름");
+        Member member = Member.builder()
+                .age(10)
+                .name("이름")
+                .role(Role.USER)
+                .build();
+
         Long id = memberRepository.save(member); // 1) 영속화
 
         Member find = memberRepository.findById(id); // 2) 영속성 컨텍스트에서 캐시된 객체를 리턴. select 쿼리가 안나간다
@@ -33,8 +35,12 @@ class MemberRepositoryTest {
 
     @Test
     void save2() {
-        Member member = new Member("이름");
-        
+        Member member = Member.builder()
+                .age(10)
+                .name("이름")
+                .role(Role.USER)
+                .build();
+
         // 트렌젝션 1시작
         Long id = memberRepository.save(member);
         // 트렌젝션 1종료 -> 쿼리실행

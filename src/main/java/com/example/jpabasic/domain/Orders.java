@@ -3,6 +3,7 @@ package com.example.jpabasic.domain;
 import lombok.Getter;
 
 import javax.persistence.*;
+import javax.print.attribute.standard.MediaSize;
 import java.io.PipedReader;
 
 @Getter
@@ -11,6 +12,7 @@ public class Orders {
 
     @Id
     @GeneratedValue
+    @Column(name = "ORDERS_ID")
     private Long id;
 
     @ManyToOne

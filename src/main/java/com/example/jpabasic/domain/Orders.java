@@ -16,7 +16,7 @@ public class Orders {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "MEMBER_ID")
+    @JoinColumn(name = "MEMBER_ID") // ORDERS 테이블의 MEMBER FK 컬럼 이름
     private Member member;
 
     protected Orders() {

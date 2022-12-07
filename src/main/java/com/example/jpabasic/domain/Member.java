@@ -2,6 +2,7 @@ package com.example.jpabasic.domain;
 
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -45,5 +46,19 @@ public class Member {
         this.name = name;
         this.age = age;
         this.role = role;
+    }
+
+    /*
+        getter를 이용해 컬럼을 생성한다
+        - getFullName -> full_name
+        - 짝이되는 setter가 없으면 에러발생
+     */
+    @Access(AccessType.PROPERTY)
+    public String getFullName() {
+        return name + " fullname";
+    }
+
+    public void setFullName(String name) {
+        this.name = name;
     }
 }

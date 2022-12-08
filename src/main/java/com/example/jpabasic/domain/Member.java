@@ -17,6 +17,10 @@ public class Member {
     @Column(name = "MEMBER_ID")
     private Long id;
 
+    @JoinColumn(name = "TEAM_ID")
+    @OneToOne
+    private Team team;
+
     @Column(length = 10)
     private String name;
 
@@ -42,4 +46,8 @@ public class Member {
         this.role = role;
     }
 
+    public void add(Team team) {
+        this.team = team;
+        team.add(this);
+    }
 }

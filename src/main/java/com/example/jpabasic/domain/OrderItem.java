@@ -4,7 +4,6 @@ import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
-import java.io.PipedReader;
 
 @Getter
 @Entity
@@ -29,5 +28,10 @@ public class OrderItem {
     public OrderItem(Orders orders, Item item) {
         this.orders = orders;
         this.item = item;
+    }
+
+    public void changeOrders(Orders orders) {
+        this.orders = orders;
+        orders.addOrderItems(this);
     }
 }

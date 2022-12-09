@@ -30,4 +30,8 @@ public class Orders {
     public Orders(Member member) {
         this.member = member;
     }
+
+    public void addOrderItems(OrderItem orderItem) {
+        orderItems.add(orderItem);
+    }
 }

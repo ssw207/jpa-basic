@@ -2,7 +2,6 @@ package com.example.jpabasic.domain;
 
 import lombok.Builder;
 import lombok.Getter;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

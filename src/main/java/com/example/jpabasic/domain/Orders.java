@@ -3,8 +3,6 @@ package com.example.jpabasic.domain;
 import lombok.Getter;
 
 import javax.persistence.*;
-import javax.print.attribute.standard.MediaSize;
-import java.io.PipedReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +30,15 @@ public class Orders {
     }
 
     public void addOrderItems(OrderItem orderItem) {
+        if (orderItems.contains(orderItem)) {
+            return;
+        }
+
         orderItems.add(orderItem);
+        orderItem.changeOrders(this);
+    }
+
+    public void removeOrderItems(OrderItem orderItem) {
+        orderItems.remove(orderItem);
     }
 }

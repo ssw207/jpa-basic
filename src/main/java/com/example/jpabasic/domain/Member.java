@@ -5,6 +5,8 @@ import lombok.Getter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -22,6 +24,9 @@ public class Member {
 
     @Column(length = 10)
     private String name;
+
+    @OneToMany(mappedBy = "member")
+    private List<Orders> orders = new ArrayList<>();
 
     @Column(nullable = false)
     private int age;

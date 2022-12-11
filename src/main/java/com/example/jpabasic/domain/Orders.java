@@ -41,4 +41,12 @@ public class Orders {
     public void removeOrderItems(OrderItem orderItem) {
         orderItems.remove(orderItem);
     }
+
+    public void changeMember(Member member) {
+        if (this.member != null) {
+            this.member.getOrders().remove(this);
+        }
+        member.getOrders().add(this);
+        this.member = member;
+    }
 }

@@ -1,17 +1,17 @@
 package com.example.jpabasic.domain;
 
+import com.example.jpabasic.domain.base.BaseEntity;
 import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Entity
 @Table(name = "MEMBER")
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,8 +33,6 @@ public class Member {
 
     @Enumerated(EnumType.STRING) // 저장시 ENUM 이름을 사용한다
     private Role role;
-    private LocalDateTime created;
-    private LocalDateTime updated;
 
     protected Member() { // 기본 생성자가 없으면 에러 발생
     }

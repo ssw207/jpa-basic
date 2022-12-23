@@ -9,14 +9,15 @@ import javax.persistence.*;
 @Entity
 public class OrderItem {
 
-    @Id
-    @GeneratedValue
-    private Long id;
+    @EmbeddedId
+    private OrderItemId id;
 
+    @MapsId("orderId")
     @ManyToOne
     @JoinColumn(name = "ORDERS_ID")
     private Orders orders;
 
+    @MapsId("itemId")
     @ManyToOne
     @JoinColumn(name = "ITEM_ID")
     private Item item;

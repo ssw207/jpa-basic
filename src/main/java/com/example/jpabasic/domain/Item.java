@@ -11,7 +11,4 @@ public class Item {
     @GeneratedValue
     @Column(name = "ITEM_ID")
     private Long id;
-
-    @Column(name = "DTYPE")
-    private String dtype;
 }

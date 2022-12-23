@@ -15,14 +15,14 @@ public class Orders {
     @Column(name = "ORDERS_ID")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "MEMBER_ID") // ORDERS 테이블의 MEMBER FK 컬럼 이름
     private Member member;
 
     @OneToMany(mappedBy = "orders") // OrderItem Entity의 연관된 필드명 지정
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    protected Orders() {
+    public Orders() {
     }
 
     public Orders(Member member) {
@@ -35,7 +35,6 @@ public class Orders {
         }
 
         orderItems.add(orderItem);
-        orderItem.changeOrders(this);
     }
 
     public void removeOrderItems(OrderItem orderItem) {

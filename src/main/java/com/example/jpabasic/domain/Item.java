@@ -1,11 +1,14 @@
 package com.example.jpabasic.domain;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 
+@Getter
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(discriminatorType = DiscriminatorType.STRING, name = "DTYPE")
-public class Item {
+public abstract class Item {
 
     @Id
     @GeneratedValue

@@ -4,11 +4,14 @@ import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
+@NoArgsConstructor
 public class OrderItem {
 
+    // auto increment 처럼 관게를 설정하면 자동으로 생성될줄  알았으나 아님. 직점 세팅해줘야함
     @EmbeddedId
     private OrderItemId id;
 
@@ -22,13 +25,11 @@ public class OrderItem {
     @JoinColumn(name = "ITEM_ID")
     private Item item;
 
-    protected OrderItem() {
-    }
-
     @Builder
     public OrderItem(Orders orders, Item item) {
         this.orders = orders;
         this.item = item;
+        this.id = new OrderItemId(orders.getId(), item.getId());
     }
 
     public void changeOrders(Orders orders) {
@@ -42,5 +43,17 @@ public class OrderItem {
         // 새로운 주문에 주문상품을 추가
         this.orders = orders;
         orders.addOrderItems(this);
+        updateId();
+    }
+
+    public void changeItem(Item item) {
+        this.item = item;
+        updateId();
+    }
+
+    private void updateId() {
+        if (orders != null && item != null) {
+            this.id = new OrderItemId(orders.getId(), item.getId());
+        }
     }
 }

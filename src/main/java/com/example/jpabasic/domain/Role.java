@@ -1,6 +1,6 @@
 package com.example.jpabasic.domain;
 
 public enum Role {
-    USER,
-    ADMIN
+	USER,
+	ADMIN
 }

@@ -15,7 +15,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
-        #properties:
+      #properties:
       #hibernate:
       #show_sql: true # show sql in console
       #format_sql: true

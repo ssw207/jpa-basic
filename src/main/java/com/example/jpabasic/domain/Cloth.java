@@ -10,8 +10,8 @@ import javax.persistence.Id;
 @Entity
 public class Cloth extends Item {
 
-    @Id
-    @GeneratedValue
-    @Column(name = "CLOTH_ID")
-    private Long id;
+	@Id
+	@GeneratedValue
+	@Column(name = "CLOTH_ID")
+	private Long id;
 }

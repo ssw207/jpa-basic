@@ -11,14 +11,14 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class OrdersRepository {
 
-  private final EntityManager em;
+    private final EntityManager em;
 
-  public Long save(Orders orders) {
-    em.persist(orders);
-    return orders.getId();
-  }
+    public Long save(Orders orders) {
+        em.persist(orders);
+        return orders.getId();
+    }
 
-  public Orders findById(Long id) {
-    return em.find(Orders.class, id);
-  }
+    public Orders findById(Long id) {
+        return em.find(Orders.class, id);
+    }
 }

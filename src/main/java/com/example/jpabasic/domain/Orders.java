@@ -17,42 +17,40 @@ import lombok.Getter;
 @Entity
 public class Orders {
 
-  @Id
-  @GeneratedValue
-  @Column(name = "ORDERS_ID")
-  private Long id;
+    @OneToMany(mappedBy = "orders") // OrderItem Entity의 연관된 필드명 지정
+    private final List<OrderItem> orderItems = new ArrayList<>();
+    @Id
+    @GeneratedValue
+    @Column(name = "ORDERS_ID")
+    private Long id;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "MEMBER_ID") // ORDERS 테이블의 MEMBER FK 컬럼 이름
+    private Member member;
 
-  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  @JoinColumn(name = "MEMBER_ID") // ORDERS 테이블의 MEMBER FK 컬럼 이름
-  private Member member;
-
-  @OneToMany(mappedBy = "orders") // OrderItem Entity의 연관된 필드명 지정
-  private final List<OrderItem> orderItems = new ArrayList<>();
-
-  public Orders() {
-  }
-
-  public Orders(Member member) {
-    this.member = member;
-  }
-
-  public void addOrderItems(OrderItem orderItem) {
-    if (orderItems.contains(orderItem)) {
-      return;
+    public Orders() {
     }
 
-    orderItems.add(orderItem);
-  }
-
-  public void removeOrderItems(OrderItem orderItem) {
-    orderItems.remove(orderItem);
-  }
-
-  public void changeMember(Member member) {
-    if (this.member != null) {
-      this.member.getOrders().remove(this);
+    public Orders(Member member) {
+        this.member = member;
     }
-    member.getOrders().add(this);
-    this.member = member;
-  }
+
+    public void addOrderItems(OrderItem orderItem) {
+        if (orderItems.contains(orderItem)) {
+            return;
+        }
+
+        orderItems.add(orderItem);
+    }
+
+    public void removeOrderItems(OrderItem orderItem) {
+        orderItems.remove(orderItem);
+    }
+
+    public void changeMember(Member member) {
+        if (this.member != null) {
+            this.member.getOrders().remove(this);
+        }
+        member.getOrders().add(this);
+        this.member = member;
+    }
 }

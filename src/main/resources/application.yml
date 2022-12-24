@@ -16,8 +16,8 @@ spring:
     hibernate:
       ddl-auto: create
         #properties:
-        #hibernate:
-        #show_sql: true # show sql in console
+      #hibernate:
+      #show_sql: true # show sql in console
       #format_sql: true
     #open-in-view: true
 

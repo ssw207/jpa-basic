@@ -6,13 +6,13 @@ import org.junit.jupiter.api.Test;
 
 class MemberTest {
 
-  @Test
-  void 수정() {
-    Member member = new Member();
+    @Test
+    void 수정() {
+        Member member = new Member();
 
-    Orders orders = new Orders();
-    orders.changeMember(member);
+        Orders orders = new Orders();
+        orders.changeMember(member);
 
-    assertThat(member.getOrders()).contains(orders);
-  }
+        assertThat(member.getOrders()).contains(orders);
+    }
 }

@@ -15,29 +15,29 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest
 class OrderItemRepositoryTest {
 
-  @Autowired
-  private OrderItemRepository orderItemRepository;
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
-  @Autowired
-  private EntityManager em;
+    @Autowired
+    private EntityManager em;
 
-  @Test
-  void save() {
-    Member member = new Member("이름");
-    em.persist(member);
+    @Test
+    void save() {
+        Member member = new Member("이름");
+        em.persist(member);
 
-    Orders orders = new Orders();
-    orders.changeMember(member);
-    em.persist(orders);
+        Orders orders = new Orders();
+        orders.changeMember(member);
+        em.persist(orders);
 
-    Item item = new Book();
-    em.persist(item);
+        Item item = new Book();
+        em.persist(item);
 
-    OrderItem orderItem = new OrderItem();
-    orderItem.changeOrders(orders);
-    orderItem.changeItem(item);
-    orderItemRepository.save(orderItem);
+        OrderItem orderItem = new OrderItem();
+        orderItem.changeOrders(orders);
+        orderItem.changeItem(item);
+        orderItemRepository.save(orderItem);
 
-    em.flush();
-  }
+        em.flush();
+    }
 }

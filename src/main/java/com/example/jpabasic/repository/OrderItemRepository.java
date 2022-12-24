@@ -12,11 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class OrderItemRepository {
 
-  private final EntityManager em;
+    private final EntityManager em;
 
-  public OrderItemId save(OrderItem orderItem) {
-    em.persist(orderItem);
-    return orderItem.getId();
-  }
+    public OrderItemId save(OrderItem orderItem) {
+        em.persist(orderItem);
+        return orderItem.getId();
+    }
 
 }

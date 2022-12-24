@@ -11,14 +11,14 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class MemberRepository {
 
-  private final EntityManager em;
+    private final EntityManager em;
 
-  public Member findById(Long id) {
-    return em.find(Member.class, id);
-  }
+    public Member findById(Long id) {
+        return em.find(Member.class, id);
+    }
 
-  public Long save(Member member) {
-    em.persist(member); // member 객체 영속화됨
-    return member.getId();
-  }
+    public Long save(Member member) {
+        em.persist(member); // member 객체 영속화됨
+        return member.getId();
+    }
 }

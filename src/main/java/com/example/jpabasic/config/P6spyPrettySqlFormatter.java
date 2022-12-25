@@ -1,7 +1,5 @@
 package com.example.jpabasic.config;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 
 import org.hibernate.engine.jdbc.internal.FormatStyle;
@@ -14,13 +12,7 @@ public class P6spyPrettySqlFormatter implements MessageFormattingStrategy {
 	@Override
 	public String formatMessage(int connectionId, String now, long elapsed, String category, String prepared,
 		String sql, String url) {
-		sql = formatSql(category, sql);
-		Date currentDate = new Date();
-
-		SimpleDateFormat format1 = new SimpleDateFormat("yy.MM.dd HH:mm:ss");
-
-		//return now + "|" + elapsed + "ms|" + category + "|connection " + connectionId + "|" + P6Util.singleLine(prepared) + sql;
-		return format1.format(currentDate) + " | " + "OperationTime : " + elapsed + "ms" + sql;
+		return "OperationTime : " + elapsed + "ms" + formatSql(category, sql);
 	}
 
 	private String formatSql(String category, String sql) {

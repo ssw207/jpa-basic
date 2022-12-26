@@ -6,18 +6,17 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import com.example.jpabasic.domain.*;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.BridgeMethodResolver;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.example.jpabasic.domain.Member;
-import com.example.jpabasic.domain.OrderItem;
-import com.example.jpabasic.domain.Orders;
-import com.example.jpabasic.domain.Role;
 
 import lombok.extern.slf4j.Slf4j;
 
+@Transactional
 @Slf4j
 @SpringBootTest
 class OrdersRepositoryTest {
@@ -75,6 +74,28 @@ class OrdersRepositoryTest {
 		List<OrderItem> orderItems = findOrders.getOrderItems();
 
 		assertThat(orderItems).hasSize(1);
+
+		em.flush();
+	}
+
+	@Test
+	void saveDelivery() {
+		Orders orders = new Orders();
+		em.persist(orders);
+
+		Delivery delivery = new Delivery((orders.getId()));
+		delivery.setName("이름");
+		orders.add(delivery);
+		em.persist(orders);
+
+		em.flush();
+		em.clear();
+
+		log.info("========================== 저장 =============================");
+
+		Orders orders1 = em.find(Orders.class, orders.getId());
+		log.info("orders조회 완료");
+		log.info(orders1.getDelivery().getName());
 
 		em.flush();
 	}

@@ -1,26 +1,29 @@
 package com.example.jpabasic.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 @Entity
 public class Orders {
 
+	@Embedded
+	private final OrderItems orderItems = new OrderItems();
 	@Id
 	@GeneratedValue
 	@Column(name = "ORDERS_ID")
 	private Long id;
-
-	@OneToMany(mappedBy = "orders") // OrderItem Entity의 연관된 필드명 지정
-	private final List<OrderItem> orderItems = new ArrayList<>();
-
-
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "MEMBER_ID") // ORDERS 테이블의 MEMBER FK 컬럼 이름
 	private Member member;

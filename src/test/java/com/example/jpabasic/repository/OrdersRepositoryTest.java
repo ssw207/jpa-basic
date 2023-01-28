@@ -6,13 +6,16 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import com.example.jpabasic.domain.*;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.BridgeMethodResolver;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.example.jpabasic.domain.Delivery;
+import com.example.jpabasic.domain.Member;
+import com.example.jpabasic.domain.OrderItem;
+import com.example.jpabasic.domain.Orders;
+import com.example.jpabasic.domain.Role;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,11 +35,7 @@ class OrdersRepositoryTest {
 
 	@Test
 	void save() {
-		Member member = Member.builder()
-			.age(10)
-			.name("이름")
-			.role(Role.ADMIN)
-			.build();
+		Member member = Member.builder().age(10).name("이름").role(Role.ADMIN).build();
 		memberRepository.save(member);
 
 		Orders orders = new Orders(member);
@@ -50,19 +49,13 @@ class OrdersRepositoryTest {
 	@Transactional
 	@Test
 	void findOrderItems() {
-		Member member = Member.builder()
-			.age(10)
-			.name("이름")
-			.role(Role.ADMIN)
-			.build();
+		Member member = Member.builder().age(10).name("이름").role(Role.ADMIN).build();
 		memberRepository.save(member);
 
 		Orders orders = new Orders(member);
 		Long id = ordersRepository.save(orders);
 
-		OrderItem orderItem = OrderItem.builder()
-			.orders(orders)
-			.build();
+		OrderItem orderItem = OrderItem.builder().orders(orders).build();
 
 		em.persist(orderItem);
 

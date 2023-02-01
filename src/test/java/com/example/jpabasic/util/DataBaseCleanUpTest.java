@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.jpabasic.domain.Member;
-import com.example.jpabasic.repository.MemberRepository;
+import com.example.jpabasic.repository.MemberOldRepository;
 
 @Transactional
 @SpringBootTest
@@ -20,7 +20,7 @@ class DataBaseCleanUpTest {
 	private DataBaseCleanUp dataBaseCleanUp;
 
 	@Autowired
-	private MemberRepository repository;
+	private MemberOldRepository repository;
 
 	@Autowired
 	private EntityManager entityManager;

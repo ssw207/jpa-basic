@@ -22,7 +22,7 @@ import lombok.Getter;
 @Getter
 @Entity
 @Table(name = "MEMBER")
-public class Member {
+public class Member extends AbstractEntity<Long> {
 
 	@OneToMany(mappedBy = "member")
 	private final List<Orders> orders = new ArrayList<>();
@@ -48,6 +48,18 @@ public class Member {
 
 	public Member(String name) {
 		this.name = name;
+	}
+
+
+	@Builder
+	public Member(Long id, Team team, String name, int age, Role role, LocalDateTime created, LocalDateTime updated) {
+		this.id = id;
+		this.team = team;
+		this.name = name;
+		this.age = age;
+		this.role = role;
+		this.created = created;
+		this.updated = updated;
 	}
 
 	@Builder

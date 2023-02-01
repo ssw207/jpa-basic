@@ -28,7 +28,7 @@ class OrdersRepositoryTest {
 	private OrdersRepository ordersRepository;
 
 	@Autowired
-	private MemberRepository memberRepository;
+	private MemberOldRepository memberRepository;
 
 	@Autowired
 	private EntityManager em;

@@ -4,6 +4,10 @@ import com.example.jpabasic.domain.Car;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Transient;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,6 +18,10 @@ class CarRepositoryTest {
     @Autowired
     private CarRepository carRepository;
 
+    @Autowired
+    private EntityManager entityManager;
+
+    @Transactional
     @Test
     void name() {
         Car car = new Car();
@@ -22,5 +30,13 @@ class CarRepositoryTest {
 
         Car save = carRepository.save(car);
         assertThat(car.isNew()).isFalse();
+
+        entityManager.flush();
+        entityManager.clear();
+
+        save = carRepository.findById(save.getId()).get();
+
+        assertThat(save.getCreatedDate()).isNotNull();
+        assertThat(save.getCreatedBy()).isNotNull();
     }
 }

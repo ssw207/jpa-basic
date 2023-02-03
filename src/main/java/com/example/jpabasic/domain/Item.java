@@ -21,4 +21,6 @@ public abstract class Item {
 	@GeneratedValue
 	@Column(name = "ITEM_ID")
 	private Long id;
+
+	private String name;
 }

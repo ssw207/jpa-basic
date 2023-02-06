@@ -1,8 +1,6 @@
 package com.example.jpabasic.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.jpabasic.domain.Member;
 import com.example.jpabasic.repository.MemberRepository;
@@ -19,5 +17,10 @@ public class MemberController {
 	public String findOne(@PathVariable(name = "id") Long id) {
 		Member member = memberRepository.findById(id).orElseThrow();
 		return member.getTeam().getName();
+	}
+
+	@PostMapping("/members")
+	public Member save(@RequestBody Member member) {
+		return memberRepository.save(member); // 테스트 편의를 위해 엔티티 그대로 반환
 	}
 }

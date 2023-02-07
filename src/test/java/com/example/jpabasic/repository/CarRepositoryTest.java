@@ -23,7 +23,7 @@ class CarRepositoryTest {
 
     @Transactional
     @Test
-    void name() {
+    void jpaAuditing테스트() {
         Car car = new Car();
         car.setId(0L);
         assertThat(car.isNew()).isTrue();

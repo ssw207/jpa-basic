@@ -24,12 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 class MemberControllerTest {
 
-	@Autowired
-	private EntityManager em;
-	@Autowired
-	private MemberRepository memberRepository;
-
-
 	@Test
 	void 회원_저장() {
 		Team team = Team.builder().name("team").build();

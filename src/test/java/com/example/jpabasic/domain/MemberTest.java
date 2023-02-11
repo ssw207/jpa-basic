@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import javax.swing.plaf.metal.MetalComboBoxEditor;
+
 class MemberTest {
 
 	@Test

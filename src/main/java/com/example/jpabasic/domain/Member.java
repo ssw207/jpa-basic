@@ -28,7 +28,7 @@ public class Member extends AbstractEntity<Long> {
 	@Column(nullable = false)
 	private int age;
 
-	@Enumerated(EnumType.STRING) // 저장시 ENUM 이름을 사용한다
+	@Convert(converter = Role.RoleConverter.class)
 	private Role role;
 	private LocalDateTime created;
 	private LocalDateTime updated;

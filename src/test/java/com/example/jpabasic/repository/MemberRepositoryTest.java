@@ -2,6 +2,10 @@ package com.example.jpabasic.repository;
 
 import static org.assertj.core.api.Assertions.*;
 
+import java.util.Map;
+
+import javax.persistence.EntityManager;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,8 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.jpabasic.domain.Member;
 import com.example.jpabasic.domain.Role;
-
-import javax.persistence.EntityManager;
+import com.example.jpabasic.domain.Team;
 
 @SpringBootTest
 class MemberRepositoryTest {
@@ -59,5 +62,26 @@ class MemberRepositoryTest {
 		// 트렌젝션 2종료 -> 쿼리실행
 
 		assertThat(member).isNotEqualTo(find); // 1,2는 서로다른 영속성 컨텍스트이므로 같지 않다.
+	}
+
+	@Test
+	void map조회() {
+
+		memberRepository.save(Member.builder()
+			.team(new Team("팀1"))
+			.age(10)
+			.name("이름")
+			.role(Role.USER)
+			.build()); // 1) 영속화
+
+		memberRepository.save(Member.builder()
+			.team(new Team("팀2"))
+			.age(10)
+			.name("이름")
+			.role(Role.USER)
+			.build()); // 1) 영속화
+
+		Map<Long, Member> allByName = memberRepository.findAllByName();
+		System.out.println("allByName = " + allByName);
 	}
 }

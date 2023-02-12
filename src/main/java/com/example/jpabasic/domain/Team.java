@@ -20,11 +20,13 @@ public class Team {
 	@Id
 	@GeneratedValue
 	private Long id;
-
 	@OneToOne(mappedBy = "team") // Member Entity의 team 필드를 통해 접근
 	private Member member;
-
 	private String name;
+
+	public Team(String name) {
+		this.name = name;
+	}
 
 	public void add(Member member) {
 		this.member = member;

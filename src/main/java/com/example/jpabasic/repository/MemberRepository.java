@@ -1,9 +1,12 @@
 package com.example.jpabasic.repository;
 
-import com.example.jpabasic.domain.Member;
+import java.util.Map;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import javax.persistence.Id;
+import com.example.jpabasic.domain.Member;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
+
+	Map<Long, Member> findAllByName();
 }

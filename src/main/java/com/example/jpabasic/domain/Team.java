@@ -1,9 +1,13 @@
 package com.example.jpabasic.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,8 +24,10 @@ public class Team {
 	@Id
 	@GeneratedValue
 	private Long id;
-	@OneToOne(mappedBy = "team") // Member Entity의 team 필드를 통해 접근
-	private Member member;
+
+	@OrderBy("name desc")
+	@OneToMany(mappedBy = "team")
+	private List<Member> members = new ArrayList<>();
 	private String name;
 
 	public Team(String name) {
@@ -29,6 +35,6 @@ public class Team {
 	}
 
 	public void add(Member member) {
-		this.member = member;
+		this.members.add(member);
 	}
 }

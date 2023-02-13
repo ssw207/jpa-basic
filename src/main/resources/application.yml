@@ -20,6 +20,8 @@ spring:
       hibernate:
         ddl-auto: create
         format_sql: true
+        jdbc:
+          batch_size: 1000
 
 logging.level:
   org.hibernate.SQL: debug

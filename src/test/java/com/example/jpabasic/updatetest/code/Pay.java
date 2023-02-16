@@ -25,6 +25,7 @@ public class Pay {
 
 	@Getter
 	@NoArgsConstructor
+	//@EqualsAndHashCode
 	@AllArgsConstructor
 	public static class PayDetail {
 		private String salesType;

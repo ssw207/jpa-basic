@@ -1,11 +1,9 @@
 package com.example.jpabasic.updatetest.code;
 
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Convert;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,21 +19,14 @@ import lombok.NoArgsConstructor;
 @Table(name = "orders_test")
 public class Order {
 
+	// 더티체킹시는 모든필드를 equals를 호출해 같은지 비교
 	@Convert(converter = PayConverter.class)
-	private final List<Pay> pays = new ArrayList<>();
+	private final List<Pay> pays = new ArrayList<>(); //
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String orderNo;
-	@Embedded
-	private Member member;
-	@Convert(converter = PeriodStringConverter.class)
-	private Period period;
+	private Long id; // 불변은 이슈없음
 
-	public Order(String orderNo, Period period, Member member, Pay pay) {
-		this.orderNo = orderNo;
-		this.period = period;
-		this.member = member;
+	public Order(Pay pay) {
 		this.pays.add(pay);
 	}
 }

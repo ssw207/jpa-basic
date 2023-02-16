@@ -32,6 +32,12 @@ dependencies {
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testCompileOnly 'org.projectlombok:lombok'
+    testImplementation('io.rest-assured:json-path:5.3.0') {
+        exclude group: 'org.apache.groovy', module: 'groovy-xml'
+    }
+    testImplementation('io.rest-assured:rest-assured:5.3.0') {
+        exclude group: 'org.apache.groovy', module: 'groovy-xml'
+    }
 }
 
 tasks.named('test') {

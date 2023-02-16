@@ -1,7 +1,5 @@
 package com.example.jpabasic.updatetest;
 
-import java.time.Period;
-
 import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -9,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.example.jpabasic.updatetest.code.Member;
 import com.example.jpabasic.updatetest.code.Order;
 import com.example.jpabasic.updatetest.code.OrderRepository;
 import com.example.jpabasic.updatetest.code.OrderService;
@@ -30,9 +27,6 @@ class OrderServiceTest {
 	@BeforeEach
 	void setUp() {
 		Order order = new Order(
-			"orderNo",
-			Period.ZERO,
-			new Member("a", "b"),
 			new Pay("code", 10L, new Pay.PayDetail("type", 1L)));
 
 		orderRepository.save(order);
@@ -41,5 +35,7 @@ class OrderServiceTest {
 	@Test
 	void name() {
 		orderService.showPayDetailAmount("orderNo");
+		System.out.println("orderService = " + orderService);
+
 	}
 }

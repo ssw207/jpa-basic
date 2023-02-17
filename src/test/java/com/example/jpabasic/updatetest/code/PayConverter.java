@@ -1,33 +1,32 @@
 package com.example.jpabasic.updatetest.code;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.AttributeConverter;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+@Slf4j
+public class PayConverter implements AttributeConverter<Pay, String> {
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
-public class PayConverter implements AttributeConverter<List<Pay>, String> {
-	private final ObjectMapper objectMapper = new ObjectMapper();
+    @Override
+    public String convertToDatabaseColumn(Pay attribute) {
+        try {
+            log.info("엔티티의 Pay를 String으로 변환한다 = " + attribute);
+            return objectMapper.writeValueAsString(attribute);
+        } catch (JsonProcessingException e) {
+            return null;
+        }
+    }
 
-	@Override
-	public String convertToDatabaseColumn(List<Pay> attribute) {
-		try {
-			return objectMapper.writeValueAsString(attribute);
-		} catch (JsonProcessingException e) {
-			return null;
-		}
-	}
-
-	@Override
-	public List<Pay> convertToEntityAttribute(String dbData) {
-		try {
-			return objectMapper.readValue(dbData, new TypeReference<List<Pay>>() {
-			});
-		} catch (JsonProcessingException e) {
-			return new ArrayList<>();
-		}
-	}
+    @Override
+    public Pay convertToEntityAttribute(String dbData) {
+        try {
+			log.info("DB에서 읽은 데이터를 Pay로 변환한다 = " + dbData);
+            return objectMapper.readValue(dbData, Pay.class);
+        } catch (JsonProcessingException e) {
+            return new Pay();
+        }
+    }
 }

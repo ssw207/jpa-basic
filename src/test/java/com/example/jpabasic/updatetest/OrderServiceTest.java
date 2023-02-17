@@ -1,41 +1,39 @@
 package com.example.jpabasic.updatetest;
 
-import javax.persistence.EntityManager;
-
+import com.example.jpabasic.updatetest.code.Order;
+import com.example.jpabasic.updatetest.code.OrderRepository;
+import com.example.jpabasic.updatetest.code.Pay;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.example.jpabasic.updatetest.code.Order;
-import com.example.jpabasic.updatetest.code.OrderRepository;
-import com.example.jpabasic.updatetest.code.OrderService;
-import com.example.jpabasic.updatetest.code.Pay;
+import javax.persistence.EntityManager;
 
+@Transactional
 @SpringBootTest
 class OrderServiceTest {
 
-	@Autowired
-	private OrderService orderService;
+    @Autowired
+    private OrderRepository orderRepository;
 
-	@Autowired
-	private OrderRepository orderRepository;
+    @Autowired
+    private EntityManager em;
 
-	@Autowired
-	private EntityManager em;
+    @BeforeEach
+    void setUp() {
+        orderRepository.save(new Order(new Pay("code", 10L)));
+        em.flush();
+        em.clear();
+        System.out.println("================== 백데이터 추가 완료 ===================");
+    }
 
-	@BeforeEach
-	void setUp() {
-		Order order = new Order(
-			new Pay("code", 10L, new Pay.PayDetail("type", 1L)));
+    @Test
+    void name() {
 
-		orderRepository.save(order);
-	}
-
-	@Test
-	void name() {
-		orderService.showPayDetailAmount("orderNo");
-		System.out.println("orderService = " + orderService);
-
-	}
+        orderRepository.findAll();
+        em.flush();
+        em.clear();
+    }
 }

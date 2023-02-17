@@ -18,15 +18,14 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "orders_test")
 public class Order {
-
-	// 더티체킹시는 모든필드를 equals를 호출해 같은지 비교
+	
 	@Convert(converter = PayConverter.class)
-	private final List<Pay> pays = new ArrayList<>(); //
+	private Pay pays; // DB에 저장시 컨버터로 Strign json 형태로 저장하고 영속화시 컨버터로 객체를 생성함
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id; // 불변은 이슈없음
 
-	public Order(Pay pay) {
-		this.pays.add(pay);
+	public Order(Pay pays) {
+		this.pays = pays;
 	}
 }

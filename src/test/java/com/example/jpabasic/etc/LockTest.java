@@ -1,11 +1,14 @@
-package com.example.jpabasic.domain;
+package com.example.jpabasic.etc;
 
+import com.example.jpabasic.domain.Car;
 import com.example.jpabasic.repository.CarRepository;
 import com.example.jpabasic.service.CarService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -23,7 +26,8 @@ class LockTest {
     @Autowired
     private EntityManager em;
 
-    @Transactional
+
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     @Test
     void name() {
         // Tx1 시작

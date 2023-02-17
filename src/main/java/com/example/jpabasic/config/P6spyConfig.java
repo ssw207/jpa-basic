@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.p6spy.engine.spy.P6SpyOptions;
 
-@Configuration
+//@Configuration
 public class P6spyConfig {
 	@PostConstruct
 	public void setLogMessageFormat() {

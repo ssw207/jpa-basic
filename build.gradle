@@ -38,6 +38,7 @@ dependencies {
     testImplementation('io.rest-assured:rest-assured:5.3.0') {
         exclude group: 'org.apache.groovy', module: 'groovy-xml'
     }
+    implementation 'org.ehcache:ehcache'
 }
 
 tasks.named('test') {

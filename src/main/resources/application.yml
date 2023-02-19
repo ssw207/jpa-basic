@@ -1,11 +1,15 @@
 spring:
   datasource:
-#    url: jdbc:p6spy:h2:mem:creator-in-app-game;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=TRUE
-#    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    #    url: jdbc:p6spy:h2:mem:creator-in-app-game;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=TRUE
+    #    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
     username: sa
     password:
     hikari:
       maximum-pool-size: 2 # 커넥션풀 2개만 사용
+  cache:
+    type: ehcache
+    ehcache:
+      config: classpath:ehcache.xml
 
   h2:
     console.enabled: true # http://localhost:8080/h2-console

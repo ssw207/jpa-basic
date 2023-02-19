@@ -1,19 +1,17 @@
 package com.example.jpabasic.repository;
 
-import com.example.jpabasic.domain.Car;
-import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.config.Task;
-import org.springframework.transaction.annotation.Transactional;
+import static org.assertj.core.api.Assertions.*;
 
 import javax.persistence.EntityManager;
 
-import java.util.concurrent.CompletableFuture;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import com.example.jpabasic.domain.Car;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @SpringBootTest
@@ -42,5 +40,16 @@ class CarRepositoryTest {
 
         assertThat(save.getCreatedDate()).isNotNull();
         assertThat(save.getCreatedBy()).isNotNull();
+    }
+
+    @Test
+    void 캐시() {
+        Car car = new Car();
+        car.setId(0L);
+
+        Car save = carRepository.save(car);
+        
+        Car car1 = carRepository.findById(save.getId()).get();
+        System.out.println("car1 = " + car1);
     }
 }

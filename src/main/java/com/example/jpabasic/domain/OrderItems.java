@@ -6,10 +6,12 @@ import java.util.List;
 
 import javax.persistence.Embeddable;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 
 @Embeddable
 public class OrderItems extends AbstractList<OrderItem> {
 
+	@OrderColumn(name = "order_seq")
 	@OneToMany(mappedBy = "orders") // OrderItem Entity의 연관된 필드명 지정
 	private final List<OrderItem> orderItems = new ArrayList<>();
 

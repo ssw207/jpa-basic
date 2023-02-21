@@ -1,5 +1,6 @@
 package com.example.jpabasic.domain;
 
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -28,6 +29,9 @@ public class OrderItem {
 	@ManyToOne
 	@JoinColumn(name = "ITEM_ID")
 	private Item item;
+
+	@Column(name = "order_seq")
+	private int seq;
 
 	@Builder
 	public OrderItem(Orders orders, Item item) {

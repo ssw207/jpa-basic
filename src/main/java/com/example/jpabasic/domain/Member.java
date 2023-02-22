@@ -1,18 +1,32 @@
 package com.example.jpabasic.domain;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@Builder
 @Getter
 @Entity
 @Table(name = "MEMBER")
-public class Member extends AbstractEntity<Long> {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Member extends BaseEntity {
 
 	@OneToMany(mappedBy = "member")
 	private final List<Orders> orders = new ArrayList<>();
@@ -21,7 +35,7 @@ public class Member extends AbstractEntity<Long> {
 	@Column(name = "MEMBER_ID")
 	private Long id;
 	@JoinColumn(name = "TEAM_ID")
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Team team;
 	@Column(length = 10)
 	private String name;
@@ -30,37 +44,17 @@ public class Member extends AbstractEntity<Long> {
 
 	@Convert(converter = Role.RoleConverter.class)
 	private Role role;
-	private LocalDateTime created;
-	private LocalDateTime updated;
-
-	protected Member() { // 기본 생성자가 없으면 에러 발생
-	}
 
 	public Member(String name) {
 		this.name = name;
 	}
 
-
-	@Builder
-	public Member(Long id, Team team, String name, int age, Role role, LocalDateTime created, LocalDateTime updated) {
-		this.id = id;
-		this.team = team;
-		this.name = name;
-		this.age = age;
-		this.role = role;
-		this.created = created;
-		this.updated = updated;
-	}
-
-	@Builder
-	public Member(String name, int age, Role role) {
-		this.name = name;
-		this.age = age;
-		this.role = role;
-	}
-
 	public void add(Team team) {
 		this.team = team;
 		team.add(this);
+	}
+
+	public void changeName(String name) {
+		this.name = name;
 	}
 }

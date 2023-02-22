@@ -1,11 +1,11 @@
 package com.example.jpabasic.domain;
 
-import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.jni.Address;
+import java.util.Arrays;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
-import java.util.Arrays;
+
+import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public enum Role {
@@ -19,15 +19,19 @@ public enum Role {
 
 		@Override
 		public String convertToDatabaseColumn(Role role) {
+			if (role == null) {
+				return Role.USER.code;
+			}
+
 			return role.code;
 		}
 
 		@Override
 		public Role convertToEntityAttribute(String code) {
 			return Arrays.stream(values())
-					.filter(v -> v.code.equals(code))
-					.findAny()
-					.orElseThrow();
+				.filter(v -> v.code.equals(code))
+				.findAny()
+				.orElseThrow();
 		}
 	}
 }

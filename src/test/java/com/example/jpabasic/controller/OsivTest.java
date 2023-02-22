@@ -10,7 +10,6 @@ import org.springframework.http.MediaType;
 
 import com.example.jpabasic.domain.Member;
 import com.example.jpabasic.domain.Team;
-import com.example.jpabasic.dto.MemberResponse;
 
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -46,6 +45,6 @@ class OsivTest {
 			.extract();
 
 		// then
-		assertThat(response.as(MemberResponse.class).getName()).isEqualTo("XXX");
+		assertThat(response.jsonPath().getString("name")).isEqualTo("XXX");
 	}
 }

@@ -52,4 +52,17 @@ class CarRepositoryTest {
         Car car1 = carRepository.findById(save.getId()).get();
         System.out.println("car1 = " + car1);
     }
+
+    @Transactional
+    @Test
+    void 벌크_업데이트() {
+        carRepository.save(new Car(0L));
+        carRepository.save(new Car(1L));
+
+        int cnt = carRepository.bulkVersionUpdate(0);
+        assertThat(cnt).isEqualTo(2);
+
+        Car car = carRepository.findById(0L).get();
+        assertThat(car.getVersion()).isEqualTo(1);
+    }
 }

@@ -3,6 +3,8 @@ package com.example.jpabasic.repository;
 import com.example.jpabasic.domain.Car;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import javax.persistence.LockModeType;
@@ -16,4 +18,8 @@ public interface CarRepository extends JpaRepository<Car, Long> {
      */
     @Lock(LockModeType.OPTIMISTIC)
     Car findLockById(@Param("id") Long id);
+
+    @Modifying(clearAutomatically = true) // 벌크 쿼리 실행후 엿속성 컨텍스트를 초기화 한다
+    @Query("update Car c set c.version= c.version + 1 where c.version >= :version")
+    int bulkVersionUpdate(@Param("version") int version);
 }

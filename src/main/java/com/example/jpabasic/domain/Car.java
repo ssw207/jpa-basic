@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Version;
 
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -16,6 +17,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
+@NoArgsConstructor
 public class Car extends BaseEntity {
 
 	@Id
@@ -25,4 +27,8 @@ public class Car extends BaseEntity {
 
 	@Version // 수정할떄마다 자동으로 증가한다.
 	private int version;
+
+	public Car(long id) {
+		this.id = id;
+	}
 }

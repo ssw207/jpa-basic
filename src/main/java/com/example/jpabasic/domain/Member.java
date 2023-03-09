@@ -45,6 +45,8 @@ public class Member extends BaseEntity {
 	@Convert(converter = Role.RoleConverter.class)
 	private Role role;
 
+	private CodeYn active;
+
 	public Member(String name) {
 		this.name = name;
 	}

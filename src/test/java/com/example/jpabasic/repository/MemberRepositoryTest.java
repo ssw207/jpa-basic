@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.*;
 
 import javax.persistence.EntityManager;
 
+import com.example.jpabasic.domain.CodeYn;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -59,5 +60,25 @@ class MemberRepositoryTest {
 		// 트렌젝션 2종료 -> 쿼리실행
 
 		assertThat(member).isNotEqualTo(find); // 1,2는 서로다른 영속성 컨텍스트이므로 같지 않다.
+	}
+
+	@Transactional
+	@Test
+	void 글로벌_컨버터_테스트() {
+
+		Member member = Member.builder()
+				.age(10)
+				.name("이름")
+				.role(Role.USER)
+				.active(CodeYn.Y)
+				.build();
+
+		Member save = memberRepository.save(member);
+
+		entityManager.flush();
+		entityManager.clear();
+
+		Member find = memberRepository.findById(save.getId()).get();
+		assertThat(find.getActive()).isEqualTo(CodeYn.Y);
 	}
 }

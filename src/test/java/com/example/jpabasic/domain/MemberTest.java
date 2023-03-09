@@ -17,4 +17,5 @@ class MemberTest {
 
 		assertThat(member.getOrders()).contains(orders);
 	}
+
 }
